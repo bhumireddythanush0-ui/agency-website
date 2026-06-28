@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextGen Ecosystem</title>
+
+  <style>
+    /* =====================================================
+       GLOBAL RESET + THEME
+    ===================================================== */
+    :root {
+      --bg: #050505;
+      --bg-soft: #0b0b0b;
+      --white: #ffffff;
+      --muted: rgba(255, 255, 255, 0.72);
+      --line: rgba(255, 255, 255, 0.14);
+      --glass: rgba(255, 255, 255, 0.07);
+      --gold: #f5b400;
+      --gold-light: #ffd56a;
+      --shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(245, 180, 0, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 30%),
+        radial-gradient(circle at top, #1a1a1a 0%, #000 70%);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    section {
+      position: relative;
+    }
+
+    /* =====================================================
+       REUSABLE COMPONENTS
+    ===================================================== */
+    .section-header,
+    .pitch-header {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+
+    .section-badge,
+    .hero-badge,
+    .testimonial-tag {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 30px;
+      color: var(--gold);
+      background: rgba(245, 180, 0, 0.09);
+      border: 1px solid rgba(245, 180, 0, 0.28);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 22px;
+    }
+
+    .section-header h2,
+    .pitch-header h2 {
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 0.98;
+      margin-bottom: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .section-header h2 span,
+    .pitch-header h2 span,
+    .gold-text {
+      color: var(--gold);
+    }
+
+    .section-header p,
+    .pitch-header p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    /* =====================================================
+       HEADER SECTION
+    ===================================================== */
+    .header {
+      width: min(1180px, 90%);
+      margin: 20px auto 0;
+      padding: 15px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 15px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: var(--white);
+    }
+
+    /* =====================================================
+       HERO SECTION
+    ===================================================== */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 70px 7% 140px;
+      gap: 80px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 78px);
+      line-height: 0.94;
+      margin-bottom: 25px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(245, 180, 0, 0.32);
+    }
+
+    .hero p {
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 14px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--white), #ffe8a1);
+      color: black;
+      font-weight: 900;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-weight: 800;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 35px rgba(245, 180, 0, 0.18);
+    }
+
+    /* =====================================================
+       HERO RIGHT ECOSYSTEM ANIMATION
+    ===================================================== */
+    .ecosystem {
+      position: relative;
+      height: 520px;
+    }
+
+    .glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: rgba(245, 180, 0, 0.13);
+      filter: blur(80px);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .center-node {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 125px;
+      height: 125px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #1f1f1f, #050505);
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 45px rgba(245, 180, 0, 0.48);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 900;
+      z-index: 3;
+    }
+
+    .node {
+      position: absolute;
+      padding: 10px 16px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      font-size: 14px;
+      font-weight: 800;
+      animation: float 3s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .n1 { top: 12%; left: 10%; }
+    .n2 { top: 18%; right: 5%; animation-delay: .3s; }
+    .n3 { top: 48%; right: 0; animation-delay: .6s; }
+    .n4 { bottom: 12%; right: 15%; animation-delay: .9s; }
+    .n5 { bottom: 14%; left: 12%; animation-delay: 1.2s; }
+    .n6 { top: 48%; left: 0; animation-delay: 1.5s; }
+
+    .line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform-origin: left center;
+      opacity: 0.65;
+      animation: pulse 2s infinite;
+    }
+
+    .l1 { width: 230px; transform: rotate(220deg); }
+    .l2 { width: 240px; transform: rotate(315deg); }
+    .l3 { width: 230px; transform: rotate(0deg); }
+    .l4 { width: 220px; transform: rotate(45deg); }
+    .l5 { width: 230px; transform: rotate(135deg); }
+    .l6 { width: 230px; transform: rotate(180deg); }
+
+    /* =====================================================
+       SERVICES MOVING BAR
+    ===================================================== */
+    .sponsor-section {
+      width: 100%;
+      padding: 18px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.035);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sponsor-track {
+      display: flex;
+      width: max-content;
+      animation: moveSponsors 25s linear infinite;
+    }
+
+    .sponsor-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .sponsor-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.92);
+      margin: 0 28px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sponsor-name span,
+    .slash {
+      color: var(--gold);
+    }
+
+    .slash {
+      opacity: 0.45;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    /* =====================================================
+       REGIONAL CLUBS SECTION
+    ===================================================== */
+    .clubs-section {
+      padding: 120px 7% 100px;
+    }
+
+    .clubs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .club-card {
+      position: relative;
+      height: 335px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      transition: 0.35s ease;
+    }
+
+    .club-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(245, 180, 0, 0.45);
+    }
+
+    .club-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.45s ease;
+      filter: brightness(0.72);
+    }
+
+    .club-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .club-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.18));
+    }
+
+    .club-content {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      z-index: 2;
+    }
+
+    .club-content h3 {
+      margin-bottom: 8px;
+      font-size: 27px;
+      font-weight: 900;
+    }
+
+    .club-content p {
+      color: rgba(255, 255, 255, 0.74);
+      line-height: 1.5;
+      font-size: 15px;
+      max-width: 82%;
+    }
+
+    .club-meta {
+      display: flex;
+      gap: 18px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .club-meta span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .club-button {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      z-index: 4;
+      padding: 10px 16px;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .club-button:hover {
+      background: var(--gold);
+      color: black;
+    }
+
+    /* =====================================================
+       PITCH FORM SECTION
+    ===================================================== */
+    .pitch-section {
+      padding: 120px 7%;
+    }
+
+    .pitch-card {
+      max-width: 1100px;
+      margin: auto;
+      padding: 34px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .pitch-info {
+      margin-bottom: 34px;
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pitch-info h3 {
+      margin-bottom: 18px;
+      font-size: 28px;
+    }
+
+    .pitch-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pitch-points span {
+      padding: 10px 14px;
+      border-radius: 30px;
+      background: rgba(245, 180, 0, 0.1);
+      border: 1px solid rgba(245, 180, 0, 0.25);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .pitch-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(0, 0, 0, 0.38);
+      color: var(--white);
+      font-size: 15px;
+      outline: none;
+      transition: 0.25s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(245, 180, 0, 0.7);
+      box-shadow: 0 0 0 4px rgba(245, 180, 0, 0.09);
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+    .submit-btn {
+      margin-top: 10px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: black;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(245, 180, 0, 0.25);
+    }
+
+    /* =====================================================
+       INVESTOR CAROUSEL SECTION
+    ===================================================== */
+    .investor-section {
+      padding: 120px 7%;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .investor-title {
+      font-size: clamp(42px, 7vw, 92px);
+      line-height: 0.95;
+      margin-bottom: 55px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .investor-title span {
+      color: var(--gold);
+      text-shadow: 0 0 28px rgba(245, 180, 0, 0.34);
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      max-width: 1050px;
+      margin: auto;
+      overflow: hidden;
+      padding: 8px 0;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 30px;
+      transition: transform 0.5s ease;
+    }
+
+    .investor-card {
+      min-width: calc((100% - 60px) / 3);
+      padding: 30px 20px;
+      border-radius: 25px;
+      background: rgba(15, 15, 15, 0.95);
+      border: 2px solid rgba(245, 180, 0, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+      transition: 0.45s ease;
+    }
+
+    .investor-card::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 230px;
+      height: 230px;
+      background: var(--gold);
+      border-radius: 50%;
+      transition: 0.45s ease;
+    }
+
+    .investor-card::after {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, rgba(245, 180, 0, 0.18), transparent, rgba(245, 180, 0, 0.25));
+      opacity: 0;
+      transition: 0.45s ease;
+    }
+
+    .investor-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      border-color: var(--gold);
+      box-shadow:
+        0 0 25px rgba(245, 180, 0, 0.35),
+        0 0 60px rgba(245, 180, 0, 0.2),
+        0 25px 45px rgba(0, 0, 0, 0.55);
+    }
+
+    .investor-card:hover::before {
+      transform: scale(1.08);
+    }
+
+    .investor-card:hover::after {
+      opacity: 1;
+    }
+
+    .investor-card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .investor-card img {
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--white);
+      margin: 0 auto 18px;
+      transition: 0.45s ease;
+    }
+
+    .investor-card:hover img {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(245, 180, 0, 0.55);
+    }
+
+    .investor-card h2 {
+      font-size: 23px;
+      margin-bottom: 8px;
+      transition: 0.35s ease;
+    }
+
+    .investor-card:hover h2 {
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .investor-card h4 {
+      color: var(--gold);
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    .investor-card p {
+      font-size: 13px;
+      color: #dcdcdc;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .investor-card-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .investor-card-buttons a,
+    .investor-card-buttons button {
+      text-decoration: none;
+      border: none;
+      background: var(--gold);
+      color: black;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.35s ease;
+    }
+
+    .investor-card-buttons a:hover,
+    .investor-card-buttons button:hover {
+      background: var(--gold-light);
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 0 25px rgba(245, 180, 0, 0.55);
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gold);
+      color: black;
+      font-size: 28px;
+      font-weight: 900;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.35s ease;
+    }
+
+    .arrow:hover {
+      background: var(--gold-light);
+      transform: translateY(-50%) scale(1.15);
+      box-shadow: 0 0 30px rgba(245, 180, 0, 0.55);
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* =====================================================
+       SERVICES SECTION
+    ===================================================== */
+    .services-section {
+      padding: 120px 7%;
+      background:
+        radial-gradient(circle at top left, rgba(255, 0, 150, 0.13), transparent 30%),
+        radial-gradient(circle at top right, rgba(0, 183, 255, 0.12), transparent 35%),
+        var(--bg);
+      text-align: center;
+    }
+
+    .services-section h2 {
+      font-size: clamp(38px, 6vw, 58px);
+      font-weight: 900;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .services-section h2 span {
+      color: var(--gold);
+    }
+
+    .services-section .subtitle {
+      color: #cfcfcf;
+      font-size: 17px;
+      max-width: 650px;
+      margin: 0 auto 45px;
+      line-height: 1.6;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .service-card {
+      text-align: left;
+      padding: 26px;
+      min-height: 240px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 196, 0, 0.7);
+      box-shadow: 0 0 30px rgba(255, 196, 0, 0.18);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 22px;
+      box-shadow: 0 0 25px currentColor;
+    }
+
+    .pink { background: #ff1493; color: #ff1493; }
+    .yellow { background: #ffc400; color: #ffc400; }
+    .purple { background: #c471ff; color: #c471ff; }
+    .blue { background: #00c8ff; color: #00c8ff; }
+    .green { background: #00e68a; color: #00e68a; }
+    .cyan { background: #00ffff; color: #00ffff; }
+
+    .service-icon span {
+      color: var(--white);
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: #d4d4d4;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .service-card a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* =====================================================
+       TESTIMONIALS SECTION
+    ===================================================== */
+    .testimonial-section {
+      min-height: 100vh;
+      padding: 100px 8%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff, #fff8d6);
+      color: #111;
+    }
+
+    .testimonial-tag {
+      background: #fff4a3;
+      color: #8a6a00;
+      border: none;
+      box-shadow: 0 8px 25px rgba(255, 210, 0, 0.25);
+    }
+
+    .testimonial-section h2 {
+      font-size: clamp(40px, 6vw, 58px);
+      line-height: 1.1;
+      margin-bottom: 70px;
+      font-weight: 900;
+    }
+
+    .testimonial-section h2 span {
+      font-style: italic;
+      color: #f5b800;
+    }
+
+    .testimonial-cards {
+      display: flex;
+      gap: 28px;
+      width: max-content;
+      animation: slideTestimonials 24s linear infinite;
+    }
+
+    .testimonial-cards:hover {
+      animation-play-state: paused;
+    }
+
+    .testimonial-card {
+      width: 420px;
+      min-height: 280px;
+      padding: 35px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 210, 0, 0.45);
+      box-shadow: 0 20px 50px rgba(255, 200, 0, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .quote {
+      font-size: 46px;
+      color: #f5b800;
+      line-height: 1;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-card p {
+      font-size: 21px;
+      line-height: 1.5;
+      font-weight: 800;
+      margin-bottom: 35px;
+    }
+
+    .profile {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+    }
+
+    .name {
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .role {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    .city-badge {
+      padding: 9px 16px;
+      background: #111;
+      color: #ffd700;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* =====================================================
+       FOOTER SECTION
+    ===================================================== */
+    .footer {
+      width: min(1200px, 90%);
+      margin: 80px auto 30px;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: 0 0 35px rgba(245, 180, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .footer span {
+      color: var(--gold);
+    }
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+    @keyframes moveSponsors {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .3; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes slideTestimonials {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* =====================================================
+       RESPONSIVE DESIGN
+    ===================================================== */
+    @media (max-width: 1100px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .clubs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 60px;
+      }
+
+      .hero p {
+        margin: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .ecosystem {
+        height: 420px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .investor-card {
+        min-width: calc((100% - 30px) / 2);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .header,
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nav {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .services-grid,
+      .clubs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .investor-card {
+        min-width: 100%;
+      }
+
+      .arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 24px;
+      }
+
+      .testimonial-card {
+        width: 320px;
+      }
+
+      .testimonial-card p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =====================================================
+       HEADER SECTION
+  ====================================================== -->
+  <header class="header">
+    <div class="logo">Next<span>Gen</span></div>
+
+    <nav class="nav">
+      <a href="#pitch">Signin</a>
+      <a href="#services">Services</a>
+      <a href="#footer">Support</a>
+    </nav>
+  </header>
+
+  <!-- =====================================================
+       HERO SECTION
+  ====================================================== -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">● Startup ecosystem platform</div>
+
+      <h1>From Idea<br>To <span>Startup</span><br>Build And Grow.</h1>
+
+      <p>
+        NextGen helps founders move from idea to pitch deck, investment,
+        services, mentorship, and startup support — all inside one powerful ecosystem.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn btn-primary">Submit Your Idea →</button>
+        <button class="btn btn-secondary">Explore Ecosystem</button>
+      </div>
+    </div>
+
+    <div class="ecosystem" aria-label="Startup ecosystem visual">
+      <div class="glow"></div>
+
+      <div class="line l1"></div>
+      <div class="line l2"></div>
+      <div class="line l3"></div>
+      <div class="line l4"></div>
+      <div class="line l5"></div>
+      <div class="line l6"></div>
+
+      <div class="center-node">Founder<br>Idea</div>
+
+      <div class="node n1">Pitch Deck</div>
+      <div class="node n2">Investment</div>
+      <div class="node n3">Services</div>
+      <div class="node n4">Mentors</div>
+      <div class="node n5">Support</div>
+      <div class="node n6">Community</div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SERVICES MOVING BAR
+  ====================================================== -->
+  <section class="sponsor-section" aria-label="Startup support services moving bar">
+    <div class="sponsor-track">
+      <div class="sponsor-group">
+        <div class="sponsor-name"><span>Software</span> Development</div><div class="slash">/</div>
+        <div class="sponsor-name">Brand <span>Development</span></div><div class="slash">/</div>
+        <div class="sponsor-name"><span>R&D</span> Partners</div><div class="slash">/</div>
+        <div class="sponsor-name">Media <span>Agency</span></div><div class="slash">/</div>
+        <div class="sponsor-name"><span>Legal</span> Support</div><div class="slash">/</div>
+        <div class="sponsor-name">Pitch Deck <span>Experts</span></div><div class="slash">/</div>
+        <div class="sponsor-name"><span>Angel</span> Investors</div><div class="slash">/</div>
+      </div>
+
+      <div class="sponsor-group">
+        <div class="sponsor-name"><span>Software</span> Development</div><div class="slash">/</div>
+        <div class="sponsor-name">Brand <span>Development</span></div><div class="slash">/</div>
+        <div class="sponsor-name"><span>R&D</span> Partners</div><div class="slash">/</div>
+        <div class="sponsor-name">Media <span>Agency</span></div><div class="slash">/</div>
+        <div class="sponsor-name"><span>Legal</span> Support</div><div class="slash">/</div>
+        <div class="sponsor-name">Pitch Deck <span>Experts</span></div><div class="slash">/</div>
+        <div class="sponsor-name"><span>Angel</span> Investors</div><div class="slash">/</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       REGIONAL CLUBS SECTION
+  ====================================================== -->
+  <section class="clubs-section" id="clubs">
+    <div class="section-header">
+      <div class="section-badge">● OUR REGIONAL CLUBS</div>
+      <h2>Stronger Together.<br>Growing <span>Everywhere.</span></h2>
+      <p>Regional clubs help founders, creators, students, mentors, investors, and service providers connect locally and grow together.</p>
+    </div>
+
+    <div class="clubs-grid">
+      <div class="club-card">
+        <img src="https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?auto=format&fit=crop&w=1200&q=80" alt="Proddatur Club">
+        <div class="club-overlay"></div>
+        <div class="club-content">
+          <h3>Proddatur Club</h3>
+          <p>Uniting local innovators and founders to build meaningful startups.</p>
+          <div class="club-meta"><span>120+ Members</span><span>12+ Events</span></div>
+        </div>
+        <button class="club-button">View Club →</button>
+      </div>
+
+      <div class="club-card">
+        <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80" alt="Kurnool Club">
+        <div class="club-overlay"></div>
+        <div class="club-content">
+          <h3>Kurnool Club</h3>
+          <p>Helping ambitious founders transform ideas into real businesses.</p>
+          <div class="club-meta"><span>180+ Members</span><span>18+ Events</span></div>
+        </div>
+        <button class="club-button">View Club →</button>
+      </div>
+
+      <div class="club-card">
+        <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80" alt="Kadapa Club">
+        <div class="club-overlay"></div>
+        <div class="club-content">
+          <h3>Kadapa Club</h3>
+          <p>Connecting local talent with mentors, investors, and startup opportunities.</p>
+          <div class="club-meta"><span>150+ Members</span><span>14+ Events</span></div>
+        </div>
+        <button class="club-button">View Club →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PITCH FORM SECTION
+  ====================================================== -->
+  <section class="pitch-section" id="pitch">
+    <div class="pitch-header">
+      <div class="section-badge">● SUBMIT YOUR PITCH</div>
+      <h2>Share Your <span>Startup Idea.</span></h2>
+      <p>Fill this pitch form so our team can understand your idea, startup stage, and support needs.</p>
+    </div>
+
+    <div class="pitch-card">
+      <div class="pitch-info">
+        <h3>Essential details for your pitch</h3>
+
+        <div class="pitch-points">
+          <span>Founder Details</span>
+          <span>Startup Name</span>
+          <span>Problem Statement</span>
+          <span>Your Solution</span>
+          <span>Target Customers</span>
+          <span>Current Stage</span>
+          <span>Support Needed</span>
+          <span>Pitch Deck Link</span>
+        </div>
+      </div>
+
+      <form class="pitch-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="founder-name">Founder Name</label>
+            <input id="founder-name" type="text" placeholder="Enter your full name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input id="email" type="email" placeholder="Enter your email">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" type="tel" placeholder="Enter your phone number">
+          </div>
+
+          <div class="form-group">
+            <label for="city">City / Regional Club</label>
+            <select id="city">
+              <option>Select your city</option>
+              <option>Proddatur Club</option>
+              <option>Kurnool Club</option>
+              <option>Kadapa Club</option>
+              <option>Vijayawada Club</option>
+              <option>Hyderabad Club</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="startup-name">Startup / Idea Name</label>
+          <input id="startup-name" type="text" placeholder="Example: Smart Farming App">
+        </div>
+
+        <div class="form-group">
+          <label for="idea-summary">Idea Summary</label>
+          <textarea id="idea-summary" placeholder="Explain your startup idea in 2-3 lines"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="problem">Problem You Are Solving</label>
+            <textarea id="problem" placeholder="What problem does your idea solve?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="solution">Your Solution</label>
+            <textarea id="solution" placeholder="How does your product or service solve it?"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="stage">Startup Stage</label>
+            <select id="stage">
+              <option>Select stage</option>
+              <option>Only Idea</option>
+              <option>Prototype Ready</option>
+              <option>MVP Ready</option>
+              <option>Already Launched</option>
+              <option>Revenue Stage</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="support">Support Needed</label>
+            <select id="support">
+              <option>Select support</option>
+              <option>Pitch Deck</option>
+              <option>Investment</option>
+              <option>Mentorship</option>
+              <option>Software Development</option>
+              <option>Branding / Marketing</option>
+              <option>Legal / Registration</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="deck-link">Pitch Deck Link / Website Link</label>
+          <input id="deck-link" type="url" placeholder="Paste Google Drive, website, or deck link">
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Pitch →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       INVESTOR CAROUSEL SECTION
+  ====================================================== -->
+  <section class="investor-section" id="investors">
+    <h2 class="investor-title">Connect With Our <span>Investors</span></h2>
+
+    <div class="carousel-wrapper">
+      <button class="arrow prev" onclick="moveSlide(-1)" aria-label="Previous investor">‹</button>
+
+      <div class="carousel-track" id="track">
+        <div class="investor-card">
+          <div class="investor-card-content">
+            <img src="https://i.pravatar.cc/150?img=11" alt="Richard Nicole">
+            <h2>Richard Nicole</h2>
+            <h4>Angel Investor</h4>
+            <p>Invests in early-stage tech startups and supports founders with funding and mentorship.</p>
+            <div class="investor-card-buttons">
+              <a href="investor-profile.html">About Me</a>
+              <button>Connect Investor</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="investor-card">
+          <div class="investor-card-content">
+            <img src="https://i.pravatar.cc/150?img=47" alt="Irene Cross">
+            <h2>Irene Cross</h2>
+            <h4>Startup Investor</h4>
+            <p>Focuses on consumer startups, SaaS products, and business growth strategies.</p>
+            <div class="investor-card-buttons">
+              <a href="investor-profile.html">About Me</a>
+              <button>Connect Investor</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="investor-card">
+          <div class="investor-card-content">
+            <img src="https://i.pravatar.cc/150?img=12" alt="Mike Rowe">
+            <h2>Mike Rowe</h2>
+            <h4>VC Partner</h4>
+            <p>Helps founders raise capital, build pitch decks, and connect with startup networks.</p>
+            <div class="investor-card-buttons">
+              <a href="investor-profile.html">About Me</a>
+              <button>Connect Investor</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="investor-card">
+          <div class="investor-card-content">
+            <img src="https://i.pravatar.cc/150?img=33" alt="Sarah Khan">
+            <h2>Sarah Khan</h2>
+            <h4>Seed Investor</h4>
+            <p>Supports idea-stage founders in fintech, edtech, and AI-based startup products.</p>
+            <div class="investor-card-buttons">
+              <a href="investor-profile.html">About Me</a>
+              <button>Connect Investor</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="investor-card">
+          <div class="investor-card-content">
+            <img src="https://i.pravatar.cc/150?img=15" alt="David Lee">
+            <h2>David Lee</h2>
+            <h4>Tech Investor</h4>
+            <p>Invests in software platforms, automation tools, and scalable startup ecosystems.</p>
+            <div class="investor-card-buttons">
+              <a href="investor-profile.html">About Me</a>
+              <button>Connect Investor</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="arrow next" onclick="moveSlide(1)" aria-label="Next investor">›</button>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SERVICES SECTION
+  ====================================================== -->
+  <section class="services-section" id="services">
+    <div class="section-badge">● OUR SERVICES</div>
+
+    <h2>Services That Help <br><span>Startups</span> Grow.</h2>
+
+    <p class="subtitle">
+      Companies and experts that empower founders at every stage of their startup journey.
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon pink"><span>&lt;/&gt;</span></div>
+        <h3>Software</h3>
+        <p>Build robust apps, dashboards, SaaS products and custom software solutions.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon yellow"><span>⚖</span></div>
+        <h3>Legal</h3>
+        <p>Company registration, contracts, trademarks, compliance and startup legal support.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon purple"><span>✎</span></div>
+        <h3>Branding</h3>
+        <p>Build a strong brand identity, voice, visual system and market positioning.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon blue"><span>▶</span></div>
+        <h3>Media</h3>
+        <p>Video production, social media content, PR, and brand storytelling.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon green"><span>▦</span></div>
+        <h3>Accounting</h3>
+        <p>GST, bookkeeping, tax filing, financial reporting and accounting support.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon cyan"><span>📣</span></div>
+        <h3>Marketing</h3>
+        <p>Digital marketing, ads, SEO, lead generation and launch campaigns.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon pink"><span>⚗</span></div>
+        <h3>R&amp;D</h3>
+        <p>Research, product validation, market study and innovation development.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon yellow"><span>♟</span></div>
+        <h3>Personal Development</h3>
+        <p>Founder coaching, mindset, leadership, communication and confidence building.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon blue"><span>🌐</span></div>
+        <h3>Website Development</h3>
+        <p>Business websites, landing pages, web apps and custom website development.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon purple"><span>✒</span></div>
+        <h3>Logo Design</h3>
+        <p>Premium logo design, brand kits, color palettes and visual identity systems.</p>
+        <a href="#">Explore Partners →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       REVIEW TESTIMONIALS SECTION
+  ====================================================== -->
+  <section class="testimonial-section" id="testimonials">
+    <div class="testimonial-tag">🚀 TRUSTED BY FOUNDERS</div>
+
+    <h2>Trusted by founders<br><span>building right now.</span></h2>
+
+    <div class="testimonial-cards">
+      <div class="testimonial-card">
+        <div class="quote">”</div>
+        <p>“This platform transformed our workflow and boosted our startup productivity.”</p>
+        <div class="profile">
+          <div>
+            <div class="name">Arjun Reddy</div>
+            <div class="role">Startup Founder</div>
+          </div>
+          <div class="city-badge">HYDERABAD</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="quote">”</div>
+        <p>“NexGen helped us refine our idea, build our MVP, and connect with investors faster.”</p>
+        <div class="profile">
+          <div>
+            <div class="name">Sneha Kapoor</div>
+            <div class="role">Startup Founder</div>
+          </div>
+          <div class="city-badge">BENGALURU</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="quote">”</div>
+        <p>“The mentor network gave us practical guidance and helped us avoid costly mistakes.”</p>
+        <div class="profile">
+          <div>
+            <div class="name">Rahul Varma</div>
+            <div class="role">Co-founder, Helix Bio</div>
+          </div>
+          <div class="city-badge">CHENNAI</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="quote">”</div>
+        <p>“Our pitch deck became investor-ready. NexGen changed how we presented our startup.”</p>
+        <div class="profile">
+          <div>
+            <div class="name">Meera Sharma</div>
+            <div class="role">Startup Founder</div>
+          </div>
+          <div class="city-badge">MUMBAI</div>
+        </div>
+      </div>
+
+      <!-- Duplicate cards for smooth infinite scroll -->
+      <div class="testimonial-card">
+        <div class="quote">”</div>
+        <p>“The community introduced us to co-founders, advisors, and our first customers.”</p>
+        <div class="profile">
+          <div>
+            <div class="name">Kiran Patel</div>
+            <div class="role">CEO, Voltarc</div>
+          </div>
+          <div class="city-badge">PUNE</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="quote">”</div>
+        <p>“From branding to legal support, every partner understood early-stage startup needs.”</p>
+        <div class="profile">
+          <div>
+            <div class="name">Ananya Rao</div>
+            <div class="role">Founder, AgroBridge</div>
+          </div>
+          <div class="city-badge">VIJAYAWADA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FOOTER SECTION
+  ====================================================== -->
+  <footer class="footer" id="footer">
+    <div>© 2026 NexGen Founders. All rights reserved.</div>
+    <div>BUILT WITH <span>♥</span> IN ANDHRA PRADESH</div>
+  </footer>
+
+  <!-- =====================================================
+       JAVASCRIPT: INVESTOR SLIDER
+  ====================================================== -->
+  <script>
+    let currentIndex = 0;
+
+    function getCardsPerView() {
+      if (window.innerWidth <= 700) return 1;
+      if (window.innerWidth <= 900) return 2;
+      return 3;
+    }
+
+    function moveSlide(direction) {
+      const track = document.getElementById("track");
+      const cards = document.querySelectorAll(".investor-card");
+      const cardsPerView = getCardsPerView();
+      const maxIndex = cards.length - cardsPerView;
+
+      currentIndex += direction;
+
+      if (currentIndex < 0) currentIndex = maxIndex;
+      if (currentIndex > maxIndex) currentIndex = 0;
+
+      const gap = 30;
+      const cardWidth = cards[0].offsetWidth + gap;
+      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    window.addEventListener("resize", function () {
+      currentIndex = 0;
+      document.getElementById("track").style.transform = "translateX(0)";
+    });
+  </script>
+</body>
+</html>
