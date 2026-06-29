@@ -474,6 +474,19 @@
       box-shadow: var(--shadow);
     }
 
+
+
+    .pitch-card.pitch-highlight {
+      animation: pitchCardGlow 2.5s ease;
+      border-color: rgba(245, 180, 0, 0.9);
+    }
+
+    @keyframes pitchCardGlow {
+      0% { box-shadow: var(--shadow); }
+      45% { box-shadow: 0 0 75px rgba(245, 180, 0, 0.65), var(--shadow); }
+      100% { box-shadow: var(--shadow); }
+    }
+
     .pitch-info {
       margin-bottom: 34px;
       padding: 24px;
@@ -574,13 +587,76 @@
       box-shadow: 0 20px 40px rgba(245, 180, 0, 0.25);
     }
 
+    .field-error {
+      display: none;
+      color: #ff4d4d;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-top: -2px;
+    }
+
+    .form-group.error input,
+    .form-group.error select,
+    .form-group.error textarea {
+      border-color: #ff4d4d;
+      box-shadow: 0 0 0 4px rgba(255, 77, 77, 0.12);
+    }
+
+    .form-group.error .field-error {
+      display: block;
+    }
+
+
+    .pitch-form-message {
+      display: none;
+      margin: 4px 0 14px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      background: rgba(255, 60, 60, 0.12);
+      border: 1px solid rgba(255, 60, 60, 0.35);
+      color: #ff8f8f;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .pitch-form-message.success {
+      background: rgba(0, 230, 138, 0.12);
+      border-color: rgba(0, 230, 138, 0.35);
+      color: #7dffbf;
+    }
+
+    .pitch-success {
+      display: none;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(0, 230, 138, 0.12);
+      border: 1px solid rgba(0, 230, 138, 0.35);
+      color: #7dffbf;
+      font-size: 15px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .pitch-success.show {
+      display: block;
+    }
+
     /* =====================================================
        INVESTOR CAROUSEL SECTION
     ===================================================== */
     .investor-section {
+      display: none;
       padding: 120px 7%;
       text-align: center;
       overflow: hidden;
+    }
+
+    .investor-section.unlocked {
+      display: block;
     }
 
     .investor-title {
@@ -1086,7 +1162,703 @@
         font-size: 18px;
       }
     }
-  </style>
+  
+
+    /* =====================================================
+       AUTH POPUP SECTION
+    ===================================================== */
+    .auth-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      z-index: 99999;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 80, 120, 0.42), transparent 35%),
+        radial-gradient(circle at 80% 25%, rgba(0, 220, 255, 0.32), transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(140, 90, 255, 0.34), transparent 38%),
+        rgba(0, 0, 0, 0.84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .auth-overlay.show {
+      display: flex;
+    }
+
+    .auth-modal {
+      width: min(410px, 94vw);
+      padding: 38px 34px;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      animation: authPop 0.35s ease;
+    }
+
+    .auth-modal::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 30px;
+      background: linear-gradient(120deg, rgba(245, 180, 0, 0.7), rgba(0, 220, 255, 0.5), rgba(180, 90, 255, 0.5), rgba(245, 180, 0, 0.7));
+      background-size: 300% 300%;
+      animation: authGlow 6s linear infinite;
+      z-index: -1;
+      filter: blur(14px);
+      opacity: 0.55;
+    }
+
+    .auth-modal h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .auth-field {
+      margin-bottom: 20px;
+    }
+
+    .auth-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .auth-field input {
+      width: 100%;
+      padding: 14px 4px;
+      border: none;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+      outline: none;
+      background: transparent;
+      color: var(--white);
+      font-size: 16px;
+    }
+
+    .auth-field input::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .auth-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin: 8px 0 26px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .auth-options a,
+    .auth-switch a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 900;
+    }
+
+    .auth-btn-main,
+    .auth-google-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .auth-btn-main {
+      border: none;
+      background: linear-gradient(135deg, #ffffff, #ffe8a1);
+      color: #111;
+      margin-bottom: 14px;
+    }
+
+    .auth-google-btn {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      margin-bottom: 22px;
+    }
+
+    .auth-btn-main:hover,
+    .auth-google-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 35px rgba(245, 180, 0, 0.18);
+    }
+
+    .auth-switch {
+      text-align: center;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .auth-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      border: none;
+      background: transparent;
+      color: var(--white);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    .auth-close:hover {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    @keyframes authPop {
+      from { opacity: 0; transform: translateY(30px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes authGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* =====================================================
+       SUPPORT CARDS SECTION
+    ===================================================== */
+    .support-section {
+      padding: 110px 7%;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(0, 234, 255, 0.13), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.16), transparent 35%),
+        #05060a;
+    }
+
+    .support-title {
+      font-size: clamp(36px, 6vw, 58px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .support-title span {
+      color: var(--gold);
+    }
+
+    .support-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 700px;
+      margin: 0 auto 48px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .support-card {
+      position: relative;
+      min-height: 220px;
+      padding: 30px;
+      border-radius: 24px;
+      text-align: left;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.075);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
+      transform-style: preserve-3d;
+      transition: 0.42s ease;
+    }
+
+    .support-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      padding: 2px;
+      background: linear-gradient(120deg, #00eaff, #8b5cf6, #ff5cf4, #f5b400, #00eaff);
+      background-size: 320% 320%;
+      animation: supportBorder 6s linear infinite;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: 0.35s ease;
+    }
+
+    .support-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -70px;
+      top: -70px;
+      border-radius: 50%;
+      background: rgba(245, 180, 0, 0.12);
+      filter: blur(10px);
+    }
+
+    .support-card:hover {
+      transform: perspective(1000px) rotateX(7deg) rotateY(-7deg) translateY(-10px);
+      box-shadow: 0 28px 80px rgba(0, 234, 255, 0.18);
+      border-color: rgba(245, 180, 0, 0.38);
+    }
+
+    .support-card:hover::before {
+      opacity: 1;
+    }
+
+    .support-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      margin-bottom: 22px;
+      background: linear-gradient(135deg, rgba(0, 234, 255, 0.95), rgba(139, 92, 246, 0.95));
+      box-shadow: 0 0 30px rgba(0, 234, 255, 0.32);
+    }
+
+    .support-card h3 {
+      font-size: 23px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .support-card p {
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.6;
+      font-size: 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes supportBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (max-width: 900px) {
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-options {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* =====================================================
+       NAVBAR PROFILE DROPDOWN
+    ===================================================== */
+    .account-menu {
+      position: relative;
+      display: inline-block;
+    }
+
+    .account-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 10px 35px rgba(245,180,0,0.25);
+      transition: 0.3s ease;
+    }
+
+    .account-icon:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(245,180,0,0.65);
+    }
+
+    .account-dropdown {
+      position: absolute;
+      top: 65px;
+      right: 0;
+      width: 300px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(10,10,10,0.72);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow:
+        0 25px 80px rgba(0,0,0,0.65),
+        0 0 35px rgba(245,180,0,0.2);
+      display: none;
+      z-index: 9999;
+      animation: dropdownFade 0.25s ease;
+    }
+
+    .account-dropdown.show {
+      display: block;
+    }
+
+    .account-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 16px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .avatar-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg,#f5b400,#fff1a6);
+      color: #111;
+      font-size: 24px;
+      box-shadow: 0 0 25px rgba(245,180,0,0.6);
+    }
+
+    .account-top h4 {
+      margin: 0;
+      color: white;
+      font-size: 16px;
+    }
+
+    .account-top p {
+      margin: 4px 0 0;
+      color: rgba(255,255,255,0.68);
+      font-size: 13px;
+      word-break: break-all;
+    }
+
+    .account-dropdown button {
+      width: 100%;
+      display: block;
+      padding: 13px 14px;
+      margin-top: 8px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: white;
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.3s ease;
+      font-weight: 800;
+    }
+
+    .account-dropdown button:hover {
+      background: rgba(245,180,0,0.18);
+      transform: translateX(6px);
+      color: #ffd86b;
+    }
+
+    .account-dropdown .account-logout {
+      background: rgba(255,60,60,0.13);
+      color: #ff8f8f;
+    }
+
+    .account-dropdown .account-logout:hover {
+      background: rgba(255,60,60,0.25);
+      color: #ffb5b5;
+      transform: translateX(6px);
+    }
+
+    @keyframes dropdownFade {
+      from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* =====================================================
+       ADMIN DASHBOARD SECTION
+    ===================================================== */
+    .admin-dashboard {
+      display: none;
+      padding: 120px 7%;
+      background:
+        radial-gradient(circle at top left, rgba(245, 180, 0, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(0, 200, 255, 0.10), transparent 35%),
+        #050505;
+    }
+
+    .admin-dashboard.show {
+      display: block;
+    }
+
+    .admin-panel {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.065);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+
+    .admin-header h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .admin-header h2 span {
+      color: var(--gold);
+    }
+
+    .admin-close {
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .3s ease;
+    }
+
+    .admin-close:hover {
+      background: rgba(255,60,60,0.18);
+      color: #ff9d9d;
+      transform: translateY(-2px);
+    }
+
+    .admin-message {
+      display: none;
+      margin: 0 0 20px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      background: rgba(255, 60, 60, 0.12);
+      border: 1px solid rgba(255, 60, 60, 0.35);
+      color: #ff8f8f;
+      font-size: 14px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .admin-message.success {
+      background: rgba(0, 230, 138, 0.12);
+      border-color: rgba(0, 230, 138, 0.35);
+      color: #7dffbf;
+    }
+
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .admin-stat-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+    }
+
+    .admin-stat-card h4 {
+      color: rgba(255,255,255,0.66);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .admin-stat-card p {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .admin-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .admin-tabs button,
+    .admin-action-btn {
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .3s ease;
+    }
+
+    .admin-tabs button:hover,
+    .admin-tabs button.active,
+    .admin-action-btn:hover {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: black;
+      transform: translateY(-2px);
+    }
+
+    .admin-content {
+      min-height: 320px;
+    }
+
+    .admin-form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .admin-form-grid input,
+    .admin-form-grid textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.38);
+      color: white;
+      outline: none;
+    }
+
+    .admin-form-grid textarea {
+      grid-column: span 2;
+      min-height: 48px;
+      resize: vertical;
+    }
+
+    .admin-form-grid .admin-action-btn {
+      min-height: 48px;
+    }
+
+    .admin-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .admin-table {
+      width: 100%;
+      min-width: 850px;
+      border-collapse: collapse;
+      background: rgba(0,0,0,0.25);
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    .admin-table th {
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+      background: rgba(245,180,0,0.06);
+    }
+
+    .admin-table td {
+      color: rgba(255,255,255,0.82);
+      line-height: 1.5;
+    }
+
+    .admin-mini-btn {
+      padding: 8px 10px;
+      margin: 2px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(245,180,0,0.18);
+      color: var(--gold-light);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .admin-mini-btn.delete {
+      background: rgba(255,60,60,0.14);
+      color: #ff9d9d;
+    }
+
+    .admin-empty {
+      padding: 30px;
+      text-align: center;
+      color: rgba(255,255,255,0.65);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1000px) {
+      .admin-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .admin-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .admin-stats,
+      .admin-form-grid {
+        grid-template-columns: 1fr;
+      }
+      .admin-form-grid textarea {
+        grid-column: span 1;
+      }
+    }
+
+</style>
 </head>
 
 <body>
@@ -1097,9 +1869,30 @@
     <div class="logo">Next<span>Gen</span></div>
 
     <nav class="nav">
-      <a href="#pitch">Signin</a>
+      <a href="#" id="signinLink" onclick="openAuth()">Signin</a>
       <a href="#services">Services</a>
       <a href="#footer">Support</a>
+
+      <!-- NAVBAR PROFILE DROPDOWN -->
+      <div class="account-menu" id="accountMenu" style="display:none;">
+        <button class="account-icon" onclick="toggleAccountDropdown()" type="button">
+          👤
+        </button>
+
+        <div class="account-dropdown" id="accountDropdown">
+          <div class="account-top">
+            <div class="avatar-circle">👤</div>
+            <div>
+              <h4>Logged In</h4>
+              <p id="accountEmail">user@email.com</p>
+            </div>
+          </div>
+
+          <button type="button" id="adminBtn" onclick="openAdminDashboard()" style="display:none;">🛠 Admin Dashboard</button>
+
+          <button type="button" class="account-logout" onclick="logout()">🚪 Logout</button>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -1118,7 +1911,7 @@
       </p>
 
       <div class="hero-buttons">
-        <button class="btn btn-primary">Submit Your Idea →</button>
+        <button class="btn btn-primary" type="button" onclick="goToPitch()">Submit Your Idea →</button>
         <button class="btn btn-secondary">Explore Ecosystem</button>
       </div>
     </div>
@@ -1329,8 +2122,12 @@
           <input id="deck-link" type="url" placeholder="Paste Google Drive, website, or deck link">
         </div>
 
+        <div id="pitchFormMessage" class="pitch-form-message"></div>
+
         <button type="submit" class="submit-btn">Submit Pitch →</button>
       </form>
+
+      <div class="pitch-success" id="pitchSuccess">✅ Pitch submitted successfully. Investor section is now unlocked.</div>
     </div>
   </section>
 
@@ -1343,7 +2140,7 @@
     <div class="carousel-wrapper">
       <button class="arrow prev" onclick="moveSlide(-1)" aria-label="Previous investor">‹</button>
 
-      <div class="carousel-track" id="track">
+      <div class="carousel-track" id="investorList">
         <div class="investor-card">
           <div class="investor-card-content">
             <img src="https://i.pravatar.cc/150?img=11" alt="Richard Nicole">
@@ -1583,6 +2380,147 @@
     </div>
   </section>
 
+
+  
+  <!-- =====================================================
+       FOUNDER SUPPORT CARDS SECTION
+  ====================================================== -->
+  <section class="support-section" id="support-cards">
+    <div class="section-badge">● STARTUP SUPPORT</div>
+    <h2 class="support-title">Tell us where you are — <br><span>we'll take you forward.</span></h2>
+    <p class="support-subtitle">Pick what you need today. NexGen will connect you with the right people, partners, mentors, and investors.</p>
+
+    <div class="support-grid">
+      <div class="support-card">
+        <div class="support-icon">💡</div>
+        <h3>I Have An Idea</h3>
+        <p>Validate, refine, and shape your concept into a startup-ready plan.</p>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon">🪙</div>
+        <h3>Need Funding</h3>
+        <p>Match with investors based on your startup stage, sector, and traction.</p>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon">👨‍🏫</div>
+        <h3>Need Mentor</h3>
+        <p>Connect with operators and mentors who have built and scaled before.</p>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon">⚙️</div>
+        <h3>Need Technical Support</h3>
+        <p>Find a technical partner, product builder, CTO, or development team.</p>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon">🧑‍🤝‍🧑</div>
+        <h3>Need Team</h3>
+        <p>Tell us what role you need and we will help you find the right people.</p>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon">❓</div>
+        <h3>Other Support</h3>
+        <p>Get help with pitch decks, branding, legal, media, marketing, and growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       LOGIN / REGISTER POPUP
+  ====================================================== -->
+  <div class="auth-overlay" id="authOverlay" onclick="closeAuthOnBg(event)">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close login popup">×</button>
+
+    <div id="loginBox">
+      <h1>Login</h1>
+
+      <div class="auth-field">
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="Enter email">
+      </div>
+
+      <div class="auth-field">
+        <label>Password</label>
+        <input id="loginPassword" type="password" placeholder="Enter password">
+      </div>
+
+      <button class="auth-btn-main" type="button" onclick="login()">Login</button>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a href="#" onclick="showRegister()">Register</a>
+      </p>
+    </div>
+
+    <div id="registerBox" style="display:none;">
+      <h1>Register</h1>
+
+      <div class="auth-field">
+        <label>Email</label>
+        <input id="signupEmail" type="email" placeholder="Enter email">
+      </div>
+
+      <div class="auth-field">
+        <label>Create Password</label>
+        <input id="signupPassword" type="password" placeholder="Create password">
+      </div>
+
+      <button class="auth-btn-main" type="button" onclick="signup()">Create Account</button>
+
+      <p class="auth-switch">
+        Already have an account?
+        <a href="#" onclick="showLogin()">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- =====================================================
+       ADMIN DASHBOARD SECTION
+  ====================================================== -->
+  <section class="admin-dashboard" id="adminDashboard">
+    <div class="admin-panel">
+      <div class="admin-header">
+        <div>
+          <div class="section-badge">● ADMIN PANEL</div>
+          <h2>NexGen <span>Dashboard</span></h2>
+        </div>
+        <button class="admin-close" type="button" onclick="closeAdminDashboard()">Close Dashboard</button>
+      </div>
+
+      <div id="adminMessage" class="admin-message"></div>
+
+      <div class="admin-stats" id="adminStats">
+        <div class="admin-stat-card"><h4>Total Users</h4><p>0</p></div>
+        <div class="admin-stat-card"><h4>Total Visitors</h4><p>0</p></div>
+        <div class="admin-stat-card"><h4>Investors</h4><p>0</p></div>
+        <div class="admin-stat-card"><h4>Pitch Decks</h4><p>0</p></div>
+        <div class="admin-stat-card"><h4>Hubs</h4><p>0</p></div>
+        <div class="admin-stat-card"><h4>Collaborations</h4><p>0</p></div>
+      </div>
+
+      <div class="admin-tabs">
+        <button type="button" onclick="showAdminTab('dashboard')" class="active">Dashboard</button>
+        <button type="button" onclick="showAdminTab('pitchDecks')">Pitch Decks</button>
+        <button type="button" onclick="showAdminTab('investors')">Investors</button>
+        <button type="button" onclick="showAdminTab('hubs')">Startup Hubs</button>
+        <button type="button" onclick="showAdminTab('collaborations')">Collaborations</button>
+        <button type="button" onclick="showAdminTab('analytics')">Analytics</button>
+      </div>
+
+      <div class="admin-content" id="adminContent">
+        <div class="admin-empty">Choose a tab to manage your startup ecosystem.</div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- =====================================================
        FOOTER SECTION
   ====================================================== -->
@@ -1591,38 +2529,19 @@
     <div>BUILT WITH <span>♥</span> IN ANDHRA PRADESH</div>
   </footer>
 
+
+
   <!-- =====================================================
-       JAVASCRIPT: INVESTOR SLIDER
+       JAVASCRIPT
   ====================================================== -->
-  <script>
-    let currentIndex = 0;
 
-    function getCardsPerView() {
-      if (window.innerWidth <= 700) return 1;
-      if (window.innerWidth <= 900) return 2;
-      return 3;
-    }
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
 
-    function moveSlide(direction) {
-      const track = document.getElementById("track");
-      const cards = document.querySelectorAll(".investor-card");
-      const cardsPerView = getCardsPerView();
-      const maxIndex = cards.length - cardsPerView;
 
-      currentIndex += direction;
 
-      if (currentIndex < 0) currentIndex = maxIndex;
-      if (currentIndex > maxIndex) currentIndex = 0;
 
-      const gap = 30;
-      const cardWidth = cards[0].offsetWidth + gap;
-      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-    }
 
-    window.addEventListener("resize", function () {
-      currentIndex = 0;
-      document.getElementById("track").style.transform = "translateX(0)";
-    });
-  </script>
 </body>
+
 </html>
